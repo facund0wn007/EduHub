@@ -1,9 +1,10 @@
 import React from 'react'
 
-export default function () {
+function page({params}) {
   return (
     <>
-    
     </>
   )
 }
+
+export default page
