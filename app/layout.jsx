@@ -1,4 +1,5 @@
 import Sidebar from "@/components/SideBar/sidebar";
+import React from 'react';
 import '@/styles/main.css'
 import { AuthContextProvider } from "@/utils/AuthContext";
 

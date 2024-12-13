@@ -3,16 +3,38 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "@/firebase/config";
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
-    const googleSignIn = () => {
+    const handleSignUp = async (email, password) => {
+        setLoading(true);
+        setError("");
+
+        try {
+            const UserCredential = await createUserWithEmailAndPassword(auth, email, password)
+            console.log("Usuario creado: ", UserCredential.user);
+            alert("Registro Exitoso");
+        }
+        catch (err) {
+            setError(err.message);
+        }
+        finally {
+            setLoading(false);
+        }
+    }
+
+    const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider);
     };
+
+
 
     const logOut = () => {
         signOut(auth);
@@ -26,7 +48,7 @@ export const AuthContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, googleSignIn, logOut }}>
+        <AuthContext.Provider value={{ user, googleSignIn, logOut, handleSignUp, loading, error }}>
             {children}
         </AuthContext.Provider>
     );
