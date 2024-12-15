@@ -9,16 +9,16 @@ import { UserAuth } from "@/utils/AuthContext";
 const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { handleSignUp, loading, error } = UserAuth();
+    const { handleSignUp, loading, error, emailVerification } = UserAuth();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        handleSignUp(email, password)
+        await handleSignUp(email, password);
+        await emailVerification();
     }
 
     return (
         <>
-        
             <form className="form" onSubmit={handleSubmit}>
                 <div className="inputGroup">
                     <label htmlFor="email">Correo Electrónico</label>
