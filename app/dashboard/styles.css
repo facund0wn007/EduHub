@@ -1,0 +1,72 @@
+.dashboard{
+    width: 90%;
+    max-width: 800px;
+    margin: 5vh auto;
+}
+
+.dashboardSubject{
+    width: 100%;
+    border-radius: 5px;
+    background-color: #13151a;
+    border: solid 3px #522280;
+    margin: 3vh 0;
+    color: #522280;
+}
+
+.subjectMenu{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.subjectTitle{
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+
+.displayer{
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.subjectInfo{
+    padding: 10px;
+    border-top: solid 3px #522280;
+    text-align: center;
+}
+
+.infoNumbers{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin: 2vh 0;
+}
+
+.number{
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+.subjectTasks{
+    margin-top: 3vh;
+}
+
+.task{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    margin: 1.5vh auto;
+    padding: 5px;
+    border: solid 2px #522280;
+    border-radius: 3px;
+    font-weight: 700;
+}
+
+.taskState{
+    width: 15%;
+    text-align: right;
+    padding: 5px;
+}
