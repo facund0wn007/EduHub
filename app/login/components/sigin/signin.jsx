@@ -1,37 +1,46 @@
 import React, {useState} from 'react'
+import { UserAuth } from "@/utils/AuthContext";
+import './signin.css'
 
 const Signin = () => {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const { handleLogin, loading, error, message } = UserAuth();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await handleLogin(email, password);
+    }
 
     return (
         <>
-            <form className="form">
+            <form className="form" onSubmit={handleSubmit}>
                 <div className="inputGroup">
-                    <label htmlFor="email">Correo Electrónico</label>
+                    <label htmlFor="email">E-mail</label>
                     <input
                         type="email"
                         id="email"
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Ingresa tu correo"
+                        placeholder="Enter your email"
                         required
                     />
                 </div>
 
                 <div className="inputGroup">
-                    <label htmlFor="password">Contraseña</label>
+                    <label htmlFor="password">Password</label>
                     <input
                         type="password"
                         id="password"
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Ingresa tu contraseña"
+                        placeholder="Enter your password"
                         required
                     />
                 </div>
 
                 {error && <p style={{ color: "red" }}>{error}</p>}
+                {message && <p style={{ color: "green" }}>{message}</p>}
                 <button type="submit" disabled={loading} className='loginButton'>
-                    {loading ? "Registrando..." : "Registrarse"}
+                    {loading ? "Iniciando Sesion..." : "Iniciar Sesion"}
                 </button>
             </form>
         </>
