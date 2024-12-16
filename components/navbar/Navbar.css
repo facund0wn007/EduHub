@@ -1,0 +1,53 @@
+  
+  .eduhubNavbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #0c0e1f; /* Deep dark blue */
+    border-bottom: 1px solid #2c3e50;
+    position: fixed; /* Fija la navbar en la parte superior */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050; /* Asegura que la navbar esté encima de la sidebar */
+  }
+  
+  .navbarLeft {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .sidebarToggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: white; /* Cambiado a blanco */
+    padding: 5px;
+  }
+  
+  .sidebarToggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+  }
+  
+  .appLogo {
+    font-size: 18px;
+    font-weight: 500;
+    color: white; /* Cambiado a blanco */
+  }
+  
+  .navbarRight {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profilePhoto {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
