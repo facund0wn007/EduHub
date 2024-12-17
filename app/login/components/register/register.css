@@ -1,12 +1,12 @@
 /* Contenedor general del formulario de registro */
 .form {
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 2rem;
+    gap: 1rem;
+    padding: 1rem;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -16,7 +16,7 @@
 /* Grupo de entradas */
 .inputGroup {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .inputGroup label {

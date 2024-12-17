@@ -4,17 +4,19 @@ import React, { useState } from 'react'
 import { UserAuth } from "@/utils/AuthContext";
 import './register.css'
 
-
-
 const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const { handleSignUp, loading, error, message, emailVerification } = UserAuth();
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [dni, setDni] = useState("");
+    const [age, setAge] = useState("");
+    const { handleSignUp, loading, error, message, emailVerification, saveUserData } = UserAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const fail = await handleSignUp(email, password, confirmPassword);
+        const fail = await handleSignUp(email, password, confirmPassword, firstName, lastName, dni, age);
         if (fail) {
             return;
         }
@@ -25,7 +27,7 @@ const Register = () => {
         <>
             <form className="form" onSubmit={handleSubmit}>
                 <div className="inputGroup">
-                    <label htmlFor="firstName">Nombre</label>
+                    <label htmlFor="firstName">Name</label>
                     <input
                         type="text"
                         id="firstName"
@@ -35,7 +37,7 @@ const Register = () => {
                     />
                 </div>
                 <div className="inputGroup">
-                    <label htmlFor="lastName">Apellido</label>
+                    <label htmlFor="lastName">Last Name</label>
                     <input
                         type="text"
                         id="lastName"
@@ -55,22 +57,9 @@ const Register = () => {
                             required
                         />
                     </div>
-                    <div className="inputGroup halfWidth">
-                        <label htmlFor="gender">Género</label>
-                        <select
-                            id="gender"
-                            onChange={(e) => setGender(e.target.value)}
-                            required
-                        >
-                            <option value="" disabled selected>Seleccione su género</option>
-                            <option value="male">Masculino</option>
-                            <option value="female">Femenino</option>
-                            <option value="other">Otro</option>
-                        </select>
-                    </div>
                 </div>
                 <div className="inputGroup">
-                    <label htmlFor="age">Edad</label>
+                    <label htmlFor="age">Age</label>
                     <input
                         type="number"
                         id="age"
@@ -91,7 +80,7 @@ const Register = () => {
                     />
                 </div>
                 <div className="inputGroup">
-                    <label htmlFor="password">Contraseña</label>
+                    <label htmlFor="password">Password</label>
                     <input
                         type="password"
                         id="password"
@@ -101,7 +90,7 @@ const Register = () => {
                     />
                 </div>
                 <div className="inputGroup">
-                    <label htmlFor="confirmPassword">Confirmar Contraseña</label>
+                    <label htmlFor="confirmPassword">Confirm Password</label>
                     <input
                         type="password"
                         id="confirmPassword"

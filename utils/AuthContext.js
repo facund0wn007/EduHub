@@ -4,6 +4,7 @@ import { useContext, createContext, useState, useEffect } from "react";
 import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, firestore } from "@/firebase/config";
 import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth'
+import { doc, setDoc } from "firebase/firestore"
 
 const AuthContext = createContext();
 
@@ -16,29 +17,31 @@ export const AuthContextProvider = ({ children }) => {
     const [message, setMessage] = useState("");
 
     //Funcion para Registrar un usuario por mail y contraseña
-    const handleSignUp = async (email, password, confirmPassword) => {
+    const handleSignUp = async (email, password, confirmPassword, firstName, lastName, dni, age) => {
         setLoading(true);
         setError("");
         setMessage("");
-
-        if(password !== confirmPassword){
+    
+        if (password !== confirmPassword) {
             setError("Passwords do not match");
             return true;
         }
-
+    
         try {
-            const UserCredential = await createUserWithEmailAndPassword(auth, email, password)
-            console.log("Usuario creado: ", UserCredential.user);
-            signOut(auth);
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+    
+            console.log("Usuario creado: ", user);
             setMessage("Registro Exitoso");
-        }
-        catch (err) {
+    
+            // Guardar los datos en Firestore
+            await saveUserData(firstName, lastName, dni, age);
+        } catch (err) {
             setError(err.message);
-        }
-        finally {
+        } finally {
             setLoading(false);
         }
-    }
+    };
 
     //Funcion para enviar el mail de verificacion de la cuenta
     const emailVerification = async () => {
@@ -48,9 +51,38 @@ export const AuthContextProvider = ({ children }) => {
                 alert("Verifique su cuenta en el mail para Iniciar Sesion");
             })
             .catch((error) => {
-                setError("Error sending verification email")
-;            });
+                setError("Error sending verification email");
+            });
     }
+
+    //Funcion para guardar los datos de los usuarios en la base de datos
+    const saveUserData = async (firstName, lastName, dni, age) => {
+        setError("");
+    
+        try {
+            const currentUser = auth.currentUser;
+    
+            if (!currentUser) {
+                console.log("No hay un usuario autenticado.");
+                return;
+            }
+    
+            const formData = {
+                firstName,
+                lastName,
+                dni,
+                age,
+                email: currentUser.email, // Email del usuario autenticado
+            };
+    
+            // Guarda los datos en Firestore usando el UID como clave
+            await setDoc(doc(firestore, "users", currentUser.uid), formData);
+            console.log("Datos del usuario guardados correctamente en Firestore");
+        } catch (error) {
+            console.error("Error al guardar los datos:", error);
+            setError("Error al guardar los datos del usuario");
+        }
+    };
 
     //Funcion para Loguearse con mail y contraseña
     const handleLogin = async (email, password) => {
@@ -62,17 +94,17 @@ export const AuthContextProvider = ({ children }) => {
             const UserCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = UserCredential.user;
             console.log(user);
-            if(!user.emailVerified){
+            if (!user.emailVerified) {
                 setError("Verifique su cuenta antes de iniciar sesion");
                 signOut(auth);
                 return;
             }
             setMessage("Inicio de Sesion exitoso");
         }
-        catch(err){
+        catch (err) {
             setError(err.message);
         }
-        finally{
+        finally {
             setLoading(false);
         }
     }
@@ -105,7 +137,18 @@ export const AuthContextProvider = ({ children }) => {
     }, [user]);
 
     return (
-        <AuthContext.Provider value={{ user, googleSignIn, logOut, handleSignUp, handleLogin, loading, error, message, emailVerification }}>
+        <AuthContext.Provider value={{
+            user,
+            googleSignIn,
+            logOut,
+            handleSignUp,
+            handleLogin,
+            loading,
+            error,
+            message,
+            emailVerification,
+            saveUserData
+        }}>
             {children}
         </AuthContext.Provider>
     );
