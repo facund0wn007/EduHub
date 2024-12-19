@@ -112,7 +112,9 @@ export const AuthContextProvider = ({ children }) => {
     //Funcion para Registrar/loguear una cuenta con google
     const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider);
+        await signInWithPopup(auth, provider);
+        const currentUser = auth.currentUser;
+        console.log(currentUser);
     };
 
     //Funcion para cerrar sesion en la cuenta activa

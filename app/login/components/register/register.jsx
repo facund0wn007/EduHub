@@ -12,7 +12,7 @@ const Register = () => {
     const [lastName, setLastName] = useState("");
     const [dni, setDni] = useState("");
     const [age, setAge] = useState("");
-    const { handleSignUp, loading, error, message, emailVerification, saveUserData } = UserAuth();
+    const { handleSignUp, loading, error, message, emailVerification, logOut } = UserAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,6 +21,7 @@ const Register = () => {
             return;
         }
         await emailVerification();
+        logOut();
     }
 
     return (
