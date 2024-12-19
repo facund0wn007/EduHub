@@ -21,7 +21,7 @@ export default function Navbar() {
           <div className="appLogo">Eduhub</div>
         </div>
 
-        <Sidebar isSidebarVisible={isSidebarVisible} />
+        <Sidebar isSidebarVisible={!isSidebarVisible} />
       </div>
 
     </>

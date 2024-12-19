@@ -1,0 +1,17 @@
+article{
+    background-color: burlywood;
+}
+
+.cursoList {
+    position: relative;
+    top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.curso  {
+    width: 900px;
+    height: 300px;
+    border-radius: 15px;
+    background-color: #2c4646;
+}

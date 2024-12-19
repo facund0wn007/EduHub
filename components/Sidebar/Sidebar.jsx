@@ -18,7 +18,6 @@ export default function Sidebar( {isSidebarVisible}) {
 
         <div className="sidebarList">
 
-
         <BtnSidebar span="Home" i="bx bx-home" />
         <BtnSidebar span="Calendar" i="bx bx-calendar" />
         <BtnSidebar span="Dashboard" i="bx bxs-dashboard" />
