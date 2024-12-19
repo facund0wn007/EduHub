@@ -1,53 +1,137 @@
-  
-  .eduhubNavbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #0c0e1f; /* Deep dark blue */
-    border-bottom: 1px solid #2c3e50;
-    position: fixed; /* Fija la navbar en la parte superior */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1050; /* Asegura que la navbar esté encima de la sidebar */
-  }
-  
-  .navbarLeft {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .sidebarToggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    color: white; /* Cambiado a blanco */
-    padding: 5px;
-  }
-  
-  .sidebarToggle:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-  }
-  
-  .appLogo {
-    font-size: 18px;
-    font-weight: 500;
-    color: white; /* Cambiado a blanco */
-  }
-  
-  .navbarRight {
-    display: flex;
-    align-items: center;
-  }
-  
-  .profilePhoto {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Oxygen:wght@300;400;700&display=swap');
+
+/* Navbar */
+.eduhubNavbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+  background-color: #13151a;
+  border-bottom: 1px solid #2c3e50;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1050;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 1rem; 
+  transition: background-color 0.3s ease;
+}
+
+.navbarLeft {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.sidebarToggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 5px;
+  font-size: 1rem;
+}
+
+.sidebarToggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.appLogo {
+  font-size: 1.1rem; 
+  font-weight: 500;
+  color: white;
+}
+
+.navbarRight {
+  display: flex;
+  align-items: center;
+}
+
+.profileContainer {
+  position: relative;
+  cursor: pointer;
+  margin-left: -125px; 
+}
+
+.profilePhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: box-shadow 0.3s ease;
+  margin-right: 0; 
+}
+
+.profilePhoto:hover {
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.profileMenu {
+  position: absolute;
+  top: 60px; 
+  left: -60px; 
+  background-color: #1f2228;
+  border: 1px solid #2c3e50;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1060;
+  overflow: visible;
+  font-size: 1rem; 
+  width: 160px; 
+  padding: 10px 0; 
+}
+
+.menuItem {
+  padding: 10px 20px;
+  color: white;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-align: center;
+  position: relative;
+}
+
+.menuItem:hover {
+  background-color: #522280;
+  box-shadow: 0 6px 15px #000000b3;
+  cursor: pointer;
+}
+
+/* Estilos actualizados para el submenú de tema */
+.themeMenuItem {
+  position: relative;
+}
+
+.themeSubmenu {
+  position: absolute;
+  left: -120px;
+  top: 0; /* Ajustado para alinear con "Tema" */
+  background-color: #1f2228;
+  border: 1px solid #2c3e50;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 120px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1070;
+}
+
+.themeMenuItem:hover .themeSubmenu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.themeOption {
+  padding: 10px 20px;
+  color: white;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.themeOption:hover {
+  background-color: #522280;
+  cursor: pointer;
+}

@@ -8,6 +8,8 @@ import BtnSidebar from '@/components/Sidebar/btnSideBar/BtnSidebar';
 export default function Sidebar( {isSidebarVisible}) {
   const [CurseisVisible, setCurseIsVisible] = useState(false);
 
+  //MICHAEL SOS RE CONTRA PPUTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+
   const toggleCoursePortfolio = () => {
     setCurseIsVisible((prev) => !prev);
   };
