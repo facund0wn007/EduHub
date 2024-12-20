@@ -17,13 +17,19 @@ export const AuthContextProvider = ({ children }) => {
     const [message, setMessage] = useState("");
 
     //Funcion para Registrar un usuario por mail y contraseña
-    const handleSignUp = async (email, password, confirmPassword, firstName, lastName, dni, age) => {
+    const handleSignUp = async (email, password, confirmPassword, firstName, lastName, dni) => {
         setLoading(true);
         setError("");
         setMessage("");
     
         if (password !== confirmPassword) {
             setError("Passwords do not match");
+            setLoading(false);
+            return true;
+        }
+        if(password.length <=5){
+            setError("La contraseña debe tener al menos 6 caracteres");
+            setLoading(false);
             return true;
         }
     
@@ -35,16 +41,19 @@ export const AuthContextProvider = ({ children }) => {
             setMessage("Registro Exitoso");
     
             // Guardar los datos en Firestore
-            await saveUserData(firstName, lastName, dni, age);
+            await saveUserData(firstName, lastName, dni);
         } catch (err) {
             setError(err.message);
-        } finally {
+        }finally {
             setLoading(false);
         }
     };
 
     //Funcion para enviar el mail de verificacion de la cuenta
     const emailVerification = async () => {
+        if(error){
+            return;
+        }
         await sendEmailVerification(auth.currentUser)
             .then(() => {
                 console.log("Correo de verificación enviado.");
@@ -56,8 +65,9 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     //Funcion para guardar los datos de los usuarios en la base de datos
-    const saveUserData = async (firstName, lastName, dni, age) => {
+    const saveUserData = async (firstName, lastName, dni) => {
         setError("");
+        setLoading(true);
     
         try {
             const currentUser = auth.currentUser;
@@ -71,8 +81,8 @@ export const AuthContextProvider = ({ children }) => {
                 firstName,
                 lastName,
                 dni,
-                age,
                 email: currentUser.email, // Email del usuario autenticado
+                image: currentUser.photoURL, //Foto de Perfil del Usuario
             };
     
             // Guarda los datos en Firestore usando el UID como clave
@@ -81,6 +91,8 @@ export const AuthContextProvider = ({ children }) => {
         } catch (error) {
             console.error("Error al guardar los datos:", error);
             setError("Error al guardar los datos del usuario");
+        }finally {
+            setLoading(false);
         }
     };
 

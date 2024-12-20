@@ -8,8 +8,6 @@ import Register from "./components/register/register";
 import Signin from "./components/sigin/signin";
 import Head from "next/head";
 
-
-
 export default function Page() {
     const [retur, setRetur] = useState(true);
 
@@ -42,3 +40,4 @@ export default function Page() {
         );
     }
 }
+

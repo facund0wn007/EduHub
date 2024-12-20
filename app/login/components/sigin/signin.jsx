@@ -1,16 +1,23 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react';
 import { UserAuth } from "@/utils/AuthContext";
-import './signin.css'
+import './signin.css';
 
 const Signin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { handleLogin, loading, error, message } = UserAuth();
+    const { handleLogin, loading, error, message, user } = UserAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         await handleLogin(email, password);
-    }
+    };
+
+    useEffect(() => {
+        if (user && !error) {
+            // Redirigir usando window.location
+            window.location.href = `/perfil/${user.uid}`;
+        }
+    }, [user, error]);
 
     return (
         <>
@@ -44,7 +51,7 @@ const Signin = () => {
                 </button>
             </form>
         </>
-    )
-}
+    );
+};
 
-export default Signin
+export default Signin;

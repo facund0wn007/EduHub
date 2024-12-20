@@ -11,17 +11,20 @@ const Register = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [dni, setDni] = useState("");
-    const [age, setAge] = useState("");
     const { handleSignUp, loading, error, message, emailVerification, logOut } = UserAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const fail = await handleSignUp(email, password, confirmPassword, firstName, lastName, dni, age);
+        const fail = await handleSignUp(email, password, confirmPassword, firstName, lastName, dni);
         if (fail) {
             return;
         }
         await emailVerification();
         logOut();
+        // Recargar la página después de 3 segundos
+        setTimeout(() => {
+            window.location.reload(); // Recarga la página
+        }, 1000); // 1000ms = 1 segundo
     }
 
     return (
@@ -58,17 +61,6 @@ const Register = () => {
                             required
                         />
                     </div>
-                </div>
-                <div className="inputGroup">
-                    <label htmlFor="age">Age</label>
-                    <input
-                        type="number"
-                        id="age"
-                        onChange={(e) => setAge(e.target.value)}
-                        placeholder="Ingrese su edad"
-                        min="1"
-                        required
-                    />
                 </div>
                 <div className="inputGroup">
                     <label htmlFor="email">E-mail</label>
