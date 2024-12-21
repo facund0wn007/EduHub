@@ -1,0 +1,93 @@
+/* CSS para la página de perfil */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0c0e1f;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #1a1d2e;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 1200px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #2a2d3e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-image i {
+    font-size: 4rem;
+    color: #ffffff;
+}
+
+.profile-details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-details div {
+    background-color: #2a2d3e;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 800px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-details div span {
+    font-weight: bolder;
+    font-size: 1.1rem;
+    color: #9ca3db;
+}
+
+.profile-details label {
+    font-weight: 600;
+}
+
+button {
+    background-color: #0c63e4;
+    color: #ffffff;
+    border: none;
+    padding: 15px 25px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    gap: 20px;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: #0a53c4;
+}

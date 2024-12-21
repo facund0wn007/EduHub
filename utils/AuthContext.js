@@ -4,7 +4,7 @@ import { useContext, createContext, useState, useEffect } from "react";
 import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, firestore } from "@/firebase/config";
 import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth'
-import { doc, setDoc } from "firebase/firestore"
+import { doc, setDoc, getDoc } from "firebase/firestore"
 
 const AuthContext = createContext();
 
@@ -134,6 +134,23 @@ export const AuthContextProvider = ({ children }) => {
         signOut(auth);
     };
 
+    const getUser = async (uid) => {
+        setError("");
+        try{
+            const userDocRef = doc(app, "users", uid);
+            const userSnap = await getDoc(userDocRef);
+            if(!userSnap.exists()){
+                setError('Usuario no encontrado');
+                return
+            } 
+            const userData = userSnap.data();
+            return userData
+        }
+        catch(error){
+            setError("Error al consultar la database");
+        }
+    }
+
     //Estado useEffect para funciones que se ejecuten al recargo de los componentes
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -161,7 +178,8 @@ export const AuthContextProvider = ({ children }) => {
             error,
             message,
             emailVerification,
-            saveUserData
+            saveUserData,
+            getUser
         }}>
             {children}
         </AuthContext.Provider>

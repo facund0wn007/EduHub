@@ -15,7 +15,7 @@ const Signin = () => {
     useEffect(() => {
         if (user && !error) {
             // Redirigir usando window.location
-            window.location.href = `/perfil/${user.uid}`;
+            window.location.href = `/perfil/:${user.uid}`;
         }
     }, [user, error]);
 

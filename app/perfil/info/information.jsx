@@ -8,13 +8,13 @@ const Information = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [dni, setDni] = useState("");
-    const { loading, saveUserData } = UserAuth();
+    const { loading, saveUserData, user } = UserAuth();
 
     const handleData = async (e) => {
         e.preventDefault();
         await saveUserData(firstName, lastName, dni);
         setTimeout(() => {
-            window.location.reload(); // Recarga la página
+            window.location.href = `/perfil/:${user.uid}`; // Recarga la página
         }, 1000); // 1000ms = 1 segundo
     }
 
